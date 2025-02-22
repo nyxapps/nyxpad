@@ -8,4 +8,4 @@ export function ReadFile():Promise<main.ReadFileOutput>;
 
 export function SaveFile(arg1:string):Promise<string>;
 
-export function WriteFile(arg1:string,arg2:string):Promise<boolean>;
+export function WriteFile(arg1:string,arg2:string):Promise<void>;

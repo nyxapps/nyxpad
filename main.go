@@ -28,6 +28,11 @@ func main() {
 		appMenu.Append(menu.AppMenu())           // Add default App menu items (About, Preferences, etc.)
 		appSubmenu := appMenu.AddSubmenu("File") // Empty label becomes app name menu
 
+		// New
+		appSubmenu.AddText("New", keys.CmdOrCtrl("n"), func(_ *menu.CallbackData) {
+			runtime.EventsEmit(app.ctx, "newRequested")
+		})
+
 		// Save
 		appSubmenu.AddText("Save", keys.CmdOrCtrl("s"), func(_ *menu.CallbackData) {
 			runtime.EventsEmit(app.ctx, "saveRequested")
@@ -40,8 +45,20 @@ func main() {
 	} else {
 		// Windows/Linux: Use traditional File menu
 		fileMenu := appMenu.AddSubmenu("File")
+
+		// New
+		fileMenu.AddText("New", keys.CmdOrCtrl("n"), func(_ *menu.CallbackData) {
+			runtime.EventsEmit(app.ctx, "newRequested")
+		})
+
+		// Save
 		fileMenu.AddText("Save", keys.CmdOrCtrl("s"), func(_ *menu.CallbackData) {
 			runtime.EventsEmit(app.ctx, "saveRequested")
+		})
+
+		// Open
+		fileMenu.AddText("Open", keys.CmdOrCtrl("o"), func(_ *menu.CallbackData) {
+			runtime.EventsEmit(app.ctx, "openRequested")
 		})
 	}
 

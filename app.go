@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/user"
 	"path"
+	"strings"
 
 	"github.com/spf13/viper"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
@@ -90,12 +91,22 @@ func (a *App) ReadFile() (output ReadFileOutput, _ error) {
 
 	f, err := runtime.OpenFileDialog(a.ctx, openFileOptions)
 	if err != nil {
+		fmt.Println("ln93 ", err)
 		return ReadFileOutput{}, err
 	}
 
 	c, err := os.ReadFile(f)
 	if err != nil {
+		fmt.Println("ln99 ", err)
 		return ReadFileOutput{}, err
+	}
+
+	if f == "" {
+		fmt.Println("user cancelled")
+		return ReadFileOutput{
+			File:    "",
+			Content: "",
+		}, nil
 	}
 
 	return ReadFileOutput{
@@ -137,13 +148,9 @@ func (a *App) SaveFile(content string) (file string, _ error) {
 }
 
 // Write to a file
-func (a *App) WriteFile(file string, content string) (success bool, _ error) {
-	err := os.WriteFile(file, []byte(content), 0666)
-	if err != nil {
-		return false, err
-	}
-
-	return true, nil
+func (a *App) WriteFile(file string, content string) error {
+	content = strings.ReplaceAll(content, "\n", "\r\n")
+	return os.WriteFile(file, []byte(content), 0644)
 }
 
 //? CONFIG ?//
