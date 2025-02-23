@@ -27,6 +27,7 @@ func main() {
 	if goruntime.GOOS == "darwin" {
 		appMenu.Append(menu.AppMenu())           // Add default App menu items (About, Preferences, etc.)
 		appSubmenu := appMenu.AddSubmenu("File") // Empty label becomes app name menu
+		appMenu.Append(menu.EditMenu())
 
 		// New
 		appSubmenu.AddText("New", keys.CmdOrCtrl("n"), func(_ *menu.CallbackData) {
