@@ -6,6 +6,12 @@
 
 Windows Notepad replacement. Also works on MacOS and Linux.
 
+## Todo
+
+- [x] Basic note-taking functionallity (e.g. opening, saving)
+- [x] Basic configuration options
+- [] Search through text using Ctrl+F
+
 ## Stack
 
 Backend: Go, Wails
