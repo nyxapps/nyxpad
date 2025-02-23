@@ -14,6 +14,7 @@
 
   let fontFamily: string = $state("sans-serif");
   let fontSize: string = $state("16px");
+  let fontColor: string = $state("#000");
   let backgroundColor: string = $state("#ffffff");
 
   let showFontSize: boolean = $state(false);
@@ -25,6 +26,10 @@
 
   ConfigGet("font-size").then((value) => {
     fontSize = value;
+  });
+
+  ConfigGet("font-color").then((value) => {
+    fontColor = value;
   });
 
   ConfigGet("background-color").then((value) => {
@@ -127,7 +132,7 @@
     bind:value={content}
     onkeydown={handleKeyDown}
     class={`w-full h-[99%] focus:outline-0 whitespace-pre-wrap`}
-    style={`font-family:${fontFamily}; tab-size: 4;font-size:${fontSize};`}
+    style={`font-family:${fontFamily}; tab-size: 4;font-size:${fontSize}; color: ${fontColor};`}
   ></textarea>
 
   <p

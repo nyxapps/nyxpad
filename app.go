@@ -34,6 +34,8 @@ func (a *App) startup(ctx context.Context) {
 
 	viper.SetDefault("font-family", "sans-serif")
 	viper.SetDefault("font-size", "16px")
+
+	viper.SetDefault("font-color", "#000")
 	viper.SetDefault("background-color", "#ffffff")
 
 	if err := viper.ReadInConfig(); err != nil {
