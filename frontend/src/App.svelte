@@ -14,6 +14,7 @@
 
   let fontFamily: string = $state("sans-serif");
   let fontSize: string = $state("16px");
+  let backgroundColor: string = $state("#ffffff");
 
   let showFontSize: boolean = $state(false);
   let timeoutId: number | null = null;
@@ -24,6 +25,10 @@
 
   ConfigGet("font-size").then((value) => {
     fontSize = value;
+  });
+
+  ConfigGet("background-color").then((value) => {
+    backgroundColor = value;
   });
 
   //? FILE FUNCTIONS ?//
@@ -54,17 +59,6 @@
   }
 
   function handleKeyDown(e: KeyboardEvent) {
-    // handle ctrl+a
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "a") {
-      e.preventDefault();
-      // Select all text in contenteditable div
-      const range = document.createRange();
-      range.selectNodeContents(textAreaElement);
-      const selection = window.getSelection();
-      selection!.removeAllRanges();
-      selection!.addRange(range);
-    }
-
     // handle tab
     if (e.key === "Tab" && !e.ctrlKey && !e.metaKey && !e.altKey) {
       e.preventDefault();
@@ -95,7 +89,7 @@
     EventsOn("saveRequested", saveFile);
     EventsOn("openRequested", openFile);
 
-    window.addEventListener("keydown", (e) => {
+    const keyDownEvent = (e: KeyboardEvent) => {
       if (e.ctrlKey || e.metaKey) {
         const currentSize = parseInt(fontSize.replace("px", ""));
 
@@ -117,21 +111,16 @@
           showFontSizeIndicator();
         }
       }
-    });
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   });
 </script>
 
-<main class="h-full">
-  <!-- <textarea
-    name="content"
-    id="content"
-    bind:this={textAreaElement}
-    bind:value={content}
-    onkeydown={handleKeyDown}
-    class={`w-full h-[99%] resize-none focus:outline-0 text-[${fontSize}]`}
-    style={`font-family:${fontFamily};`}
-  ></textarea> -->
-
+<main class="h-full" style={`background-color:${backgroundColor};`}>
   <textarea
     id="content"
     bind:this={textAreaElement}
