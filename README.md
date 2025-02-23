@@ -6,6 +6,8 @@
 
 Windows Notepad replacement. Also works on MacOS and Linux.
 
+Wiki: [https://github.com/nyxapps/nyxpad/wiki](https://github.com/nyxapps/nyxpad/wiki)
+
 ## Todo
 
 - [x] Basic note-taking functionallity (e.g. opening, saving)
