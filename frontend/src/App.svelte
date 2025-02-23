@@ -113,9 +113,9 @@
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keydown", keyDownEvent);
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keydown", keyDownEvent);
     };
   });
 </script>
